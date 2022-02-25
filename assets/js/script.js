@@ -2,6 +2,8 @@
 var charactersArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var numbersArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 var specialCharactersArray = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'];
+var minTypeSelectionError = "<h4 style='color:red'>ERROR: Select atleast one character type. Try Again</h4>";
+var validPasswordLengthError = "<h4 style='color:red'>ERROR: Password length should minimum 8 characters and maximum 128 characters. Try Again</h4>";
 
 
 //prompts to user for selectoins
@@ -28,9 +30,11 @@ function generatePassword() {
   var lowerCase = includeLowercase();
   var upperCase = includeUpperCase();
   var specialCharacters = includeSpecialChars();
+  //validating minimum selection of atleast one character type
   if (lowerCase || upperCase || specialCharacters) {
     var numbers = includeNumbers();
     var lengthOfThePassword = length();
+    //validation of valid password length;
     if (lengthOfThePassword > 128 || lengthOfThePassword < 8) {
       return "wronglength";
     }
@@ -87,25 +91,24 @@ function passwordGenerator(smallchars, upperchars, numbers, splchars, passwordLe
   return generatedPassword.toString().replaceAll(',', '');
 }
 
-
-
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var errorEl = document.querySelector(".card-error");
+
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
+
   if (password === "charactertype") {
     passwordText.value = '';
-    errorEl.innerHTML = "<h4 style='color:red'>ERROR: Select atleast one character type. Try Again</h4>"
+    document.querySelector(".card-error").innerHTML = minTypeSelectionError;
   } else if (password === "wronglength") {
     passwordText.value = '';
-    errorEl.innerHTML = "<h4 style='color:red'>ERROR: Password length should minimum 8 characters and maximum 128 characters. Try Again</h4>"
+    document.querySelector(".card-error").innerHTML = validPasswordLengthError;
   }
   else {
-    errorEl.innerHTML = '';
+    document.querySelector(".card-error").innerHTML = '';
     passwordText.value = password;
   }
 
