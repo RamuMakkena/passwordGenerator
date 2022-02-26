@@ -30,9 +30,9 @@ function generatePassword() {
   var lowerCase = includeLowercase();
   var upperCase = includeUpperCase();
   var specialCharacters = includeSpecialChars();
+  var numbers = includeNumbers();
   //validating minimum selection of atleast one character type
-  if (lowerCase || upperCase || specialCharacters) {
-    var numbers = includeNumbers();
+  if (lowerCase || upperCase || specialCharacters || numbers) {
     var lengthOfThePassword = length();
     //validation of valid password length;
     if (lengthOfThePassword > 128 || lengthOfThePassword < 8) {
